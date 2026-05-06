@@ -1,0 +1,22 @@
+{
+  "parametros": {
+    "n_estimators": 900,
+    "max_depth": 6,
+    "learning_rate": 0.008904974881602749,
+    "min_child_weight": 3,
+    "gamma": 0.2765957072272738,
+    "subsample": 0.859850921017502,
+    "colsample_bytree": 0.9999897808969258,
+    "colsample_bylevel": 0.9903577812525204,
+    "reg_alpha": 7.291441052563398,
+    "reg_lambda": 4.947950345581988,
+    "random_state": 42,
+    "verbosity": 0
+  },
+  "mape_optuna": 30.379463789891293,
+  "mape_baseline_v5": 32.30047305903431,
+  "mejora_pp": 1.921009269143017,
+  "accuracy": 69.62053621010871,
+  "n_trials": 64,
+  "fecha": "2026-05-06T10:38:39.966534"
+}
