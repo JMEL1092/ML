@@ -95,10 +95,11 @@ def build_features(panel: pd.DataFrame, cohorte_serie: pd.DataFrame,
 
     # ── Features de cohorte (Engine Date – señal anticipada) ─────────────────
     df["cohorte_ratio"]   = df["cohorte_ratio_max"].fillna(1.0)
-    df["cohorte_ratio"].clip(0, 5, inplace=True)
+    df["cohorte_ratio"] = df["cohorte_ratio"].clip(0, 5)
 
     # ── Costo unitario de referencia ──────────────────────────────────────────
-    df["costo_unit_ref"]  = df["costo_unit_med"].fillna(df["costo_unit_med"].median())
+    _med = df["costo_unit_med"].median()
+    df["costo_unit_ref"] = df["costo_unit_med"].fillna(0.0 if pd.isna(_med) else _med)
 
     # ── Columnas de features finales ─────────────────────────────────────────
     FEATURE_COLS = [

@@ -60,17 +60,16 @@ def walk_forward_validation(monthly_raw: pd.DataFrame, feat_cols: list,
         if len(X_tr) < 10 or len(X_v) == 0 or y_v.sum() == 0:
             continue
 
-        sw = sample_weights_decay(len(y_tr))
-
         # Early stopping con últimas 3 meses de train como eval set
         n_series   = monthly_raw["serie_id"].nunique()
         eval_rows  = min(3 * n_series, max(len(X_tr) // 6, 5))
         X_eval, y_eval = X_tr.iloc[-eval_rows:], y_tr.iloc[-eval_rows:]
         X_fit,  y_fit  = X_tr.iloc[:-eval_rows], y_tr.iloc[:-eval_rows]
-        sw_fit = sw[:len(y_fit)]
+        sw_fit = sample_weights_decay(len(y_fit))
 
         if len(X_fit) < 5:
-            X_fit, y_fit, sw_fit = X_tr, y_tr, sw
+            X_fit, y_fit = X_tr, y_tr
+            sw_fit = sample_weights_decay(len(y_fit))
             X_eval, y_eval = X_tr.iloc[-2:], y_tr.iloc[-2:]
 
         model = XGBRegressor(**{**params, "early_stopping_rounds": 30, "eval_metric": "mae"})

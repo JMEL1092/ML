@@ -62,9 +62,12 @@ def forecast_serie(serie_id: str, monthly_panel: pd.DataFrame,
         row_feat = feat_next[fc_g].iloc[[-1]].fillna(0).astype(float)
 
         if usar_individual:
-            row_ind = feat_next[fc_ind].iloc[[-1]].fillna(0).astype(float) if fc_ind == fc_g else row_feat[fc_ind] if all(c in row_feat.columns for c in fc_ind) else row_feat
-            pred_i  = float(np.maximum(m_ind.predict(row_ind.values), 0)[0])
-            pred_g  = float(np.maximum(model_global.predict(row_feat.values), 0)[0])
+            if fc_ind == fc_g or all(c in feat_next.columns for c in fc_ind):
+                row_ind = feat_next[fc_ind].iloc[[-1]].fillna(0).astype(float)
+                pred_i  = float(np.maximum(m_ind.predict(row_ind.values), 0)[0])
+            else:
+                pred_i  = float(np.maximum(model_global.predict(row_feat.values), 0)[0])
+            pred_g   = float(np.maximum(model_global.predict(row_feat.values), 0)[0])
             # Blend: 60% individual, 40% global
             pred_raw = 0.6 * pred_i + 0.4 * pred_g
         else:
