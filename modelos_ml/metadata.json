@@ -1,11 +1,11 @@
 {
   "version": "v6",
-  "fecha": "2026-05-13 19:17",
+  "fecha": "2026-05-14 05:54",
   "modo": "INICIAL",
   "n_series": 890,
-  "wape_oos_mean": 0.589814517838936,
-  "wape_is_mean": 0.36357242510743804,
-  "gap_of_mean": -0.22624209273149792,
+  "wape_oos_mean": 0.584446990390583,
+  "wape_is_mean": 0.35185652436055653,
+  "gap_of_mean": -0.23259046603002653,
   "n_folds": 11,
   "horizonte_meses": 6,
   "features": [
